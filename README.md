@@ -1,5 +1,5 @@
-#sort
-Different sort method. Including:
+#Sort
+Different sort methods. Including:
 *heap sort
 *insert sort
 *merge sort
