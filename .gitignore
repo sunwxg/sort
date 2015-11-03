@@ -1,2 +1,4 @@
 test/build/*
 test/AllTests.c
+*.o
+build/*
