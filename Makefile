@@ -30,15 +30,16 @@ default:
 		-o $(TEST_BUILD_DIR)$(TEST_TARGET)
 
 build: build_dir target
-	ar rcs $(BUILD_DIR)/lib$(TARGET).a $(TARGET_FILES) 
+	ar rcs $(BUILD_DIR)/lib$(TARGET).a $(TARGET_FILES)
 	$(C_COMPILER) -shared -o $(BUILD_DIR)/lib$(TARGET).so $(TARGET_FILES)
+	@cp $(SRC_DIR)sort.h $(BUILD_DIR)/include/
 
-target: CFLAGS+=-fPIC 
+target: CFLAGS+=-fPIC
 target: $(TARGET_FILES)
 
 %.o: %.c
-	@$(C_COMPILER) $(CFLAGS) $(INC_DIRS) -c -o $@ $? 
-	
+	@$(C_COMPILER) $(CFLAGS) $(INC_DIRS) -c -o $@ $?
+
 install:
 	@echo copying files to $(PREFIX)
 	@cp $(BUILD_DIR)/* $(PREFIX)
@@ -57,6 +58,7 @@ gen_test:
 
 build_dir:
 	@mkdir -p $(BUILD_DIR)
+	@mkdir -p $(BUILD_DIR)/include
 
 clean_obj:
 	@rm -f $(TEST_TARGET)
@@ -66,8 +68,8 @@ clean: clean_obj
 	@rm -f cscope.*
 	@rm -f tags
 	@rm -f src/*.o
-	@rm -f build/*
-	
+	@rm -rf build/*
+
 tags:
 	@echo making cscope.out and tags
 	@rm -f cscope.* tags
